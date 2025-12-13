@@ -1,17 +1,15 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.client;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "professorat")
-@DiscriminatorValue("Professorat")
+@Table(name = "professors")
+@DiscriminatorValue("PROFESSOR")
 public class Professor extends Client{
-    private String email;
+    @Column(length = 100)
+    private String department;
 
-    public String getEmail() {
-
-        return email;
+    public String getDepartment() {
+        return department;
     }
 }

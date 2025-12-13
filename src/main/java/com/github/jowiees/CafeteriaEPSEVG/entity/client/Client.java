@@ -1,43 +1,41 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.client;
 
 import jakarta.persistence.*;
-
-import java.util.Objects;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "clients")
 @DiscriminatorColumn(name = "client_type")
 public abstract class Client {
     @Id
-    @GeneratedValue
-    private Integer memberId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Client() {
+    @Column(length = 100, unique = true, nullable = false)
+    private String universityCardCode;
+
+    @Column(length = 100, nullable = false)
+    private String name;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    public Long getId() {
+        return id;
     }
 
-    public Client(String client_type) {
+    public String getUniversityCardCode() {
+        return universityCardCode;
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(memberId, client.memberId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(memberId);
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "member_id=" + memberId +
-                '}';
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

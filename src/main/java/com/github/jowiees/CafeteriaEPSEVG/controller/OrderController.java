@@ -20,13 +20,13 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
-    public List<OrderResponse> getAll() {
-        return orderService.getAll();
-    }
+    //@GetMapping
+    //public List<OrderResponse> getAll() {
+    //    return orderService.getAll();
+    //}
 
-    @GetMapping("{orderId}")
-    public OrderDetailResponse getById(@PathVariable Long orderId) {
-        return orderService.getById(orderId);
-    }
+    //@GetMapping("{orderId}")
+    //public OrderDetailResponse getById(@PathVariable Long orderId) {
+    //    return orderService.getById(orderId);
+    //}
 }

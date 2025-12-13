@@ -13,6 +13,7 @@ public class Product extends Item {
     @Column(name = "barcode")
     private Integer barCode;
 
+
     public String getName() {
         return name;
     }

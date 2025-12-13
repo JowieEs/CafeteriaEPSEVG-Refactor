@@ -8,10 +8,12 @@ import com.github.jowiees.CafeteriaEPSEVG.exception.ClientNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.StudentResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.ProfessorResponse;
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -21,15 +23,22 @@ public class ClientService {
 
     private ClientResponse mapToDto(Client client) {
         return switch (client) {
-            case Professor prof -> new ProfessorResponse(
-                    prof.getMemberId(),
-                    "Professorat",
-                    prof.getEmail()
+            case Professor p -> new ProfessorResponse(
+                    p.getId(),
+                    p.getUniversityCardCode(),
+                    p.getName(),
+                    "Professor",
+                    p.getCreatedAt(),
+                    p.getDepartment()
             );
 
-            case Student est -> new StudentResponse(
-                    est.getMemberId(),
-                    "Estudiant"
+            case Student s -> new StudentResponse(
+                    s.getId(),
+                    s.getUniversityCardCode(),
+                    s.getName(),
+                    "Student",
+                    s.getCreatedAt(),
+                    s.getDegree()
             );
             default -> throw new IllegalStateException("Unexpected value: " + client);
         };
@@ -39,35 +48,57 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public List<ClientResponse> getAll(){
-        return clientRepository.findAll().stream().map(this::mapToDto).toList();
+    private PageRequest enforcePageLimits(Pageable pageable) {
+        int pageLimit = 100;
+        return PageRequest.of(
+                pageable.getPageNumber(),
+                Math.min(pageLimit, pageable.getPageSize()),
+                pageable.getSort()
+        );
     }
 
-    public ClientResponse getById(Integer memberID) {
-        return clientRepository.findById(memberID)
+    @SuppressWarnings("NullableProblems")
+    public Page<ClientResponse> getAll(Pageable pageable){
+        Pageable safePageable = enforcePageLimits(pageable);
+        return clientRepository.findAll(safePageable).map(this::mapToDto);
+    }
+
+    public ClientResponse getById(Long id) {
+        return clientRepository.findById(id)
                 .map(this::mapToDto)
                 .orElseThrow(
-                        () -> new ClientNotFoundException(memberID)
+                        () -> new ClientNotFoundException(id)
                 );
     }
 
-    public List<StudentResponse> getAllStudents() {
-        return clientRepository.findAllStudents().stream().map(
+    @SuppressWarnings("NullableProblems")
+    public Page<StudentResponse> getAllStudents(Pageable pageable) {
+        Pageable safePageable = enforcePageLimits(pageable);
+        return clientRepository.findAllStudents(safePageable).map(
                 s -> new StudentResponse(
-                    s.getMemberId(),
-                    "Estudiant"
+                        s.getId(),
+                        s.getUniversityCardCode(),
+                        s.getName(),
+                        "Student",
+                        s.getCreatedAt(),
+                        s.getDegree()
                 )
-        ).toList();
+        );
     }
 
-    public List<ProfessorResponse> getAllProfessors() {
-        return clientRepository.findAllProfessors().stream().map(
+    @SuppressWarnings("NullableProblems")
+    public Page<ProfessorResponse> getAllProfessors(Pageable pageable) {
+        Pageable safePageable = enforcePageLimits(pageable);
+        return clientRepository.findAllProfessors(safePageable).map(
                 p -> new ProfessorResponse(
-                        p.getMemberId(),
-                        "Professorat",
-                        p.getEmail()
-                )
-        ).toList();
+                    p.getId(),
+                    p.getUniversityCardCode(),
+                    p.getName(),
+                    "Professor",
+                    p.getCreatedAt(),
+                    p.getDepartment()
+            )
+        );
     }
 
 

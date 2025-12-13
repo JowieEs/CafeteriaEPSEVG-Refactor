@@ -20,36 +20,36 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<OrderResponse> getAll() {
-        return orderRepository.findAll().stream().map(
-                order -> new OrderResponse(
-                        order.getId(),
-                        order.getDateTime(),
-                        order.getTotalPrice(),
-                        order.getPaymentMethod(),
-                        (order.getClient() != null) ? order.getClient().getMemberId() : null
-                )
-        ).toList();
-    }
+    //public List<OrderResponse> getAll() {
+    //    return orderRepository.findAll().stream().map(
+    //            order -> new OrderResponse(
+    //                    order.getId(),
+    //                    order.getDateTime(),
+    //                    order.getTotalPrice(),
+    //                    order.getPaymentMethod(),
+    //                    (order.getClient() != null) ? order.getClient().getMemberId() : null
+    //            )
+    //    ).toList();
+    //}
 
-    public OrderDetailResponse getById(Long orderId) {
-        return orderRepository.findById(orderId).map(
-                order -> new OrderDetailResponse(
-                        order.getId(),
-                        order.getDateTime(),
-                        order.getTotalPrice(),
-                        order.getPaymentMethod(),
-                        (order.getClient() != null) ? order.getClient().getMemberId() : null,
-                        order.getQuantityItems().stream().map(
-                                quantityItem -> new QuantityItemResponse(
-                                        (quantityItem.getItem() != null) ? quantityItem.getItem().getId() : null,
-                                        (quantityItem.getItem() != null) ? quantityItem.getQuantity() : null,
-                                        (quantityItem.getItem() != null) ? quantityItem.getItem().getItemType() : null
-                                )
-                        ).toList()
-                )
-        ).orElseThrow(
-                () -> new OrderNotFoundException(orderId)
-        );
-    }
+    //public OrderDetailResponse getById(Long orderId) {
+    //    return orderRepository.findById(orderId).map(
+    //            order -> new OrderDetailResponse(
+    //                    order.getId(),
+    //                    order.getDateTime(),
+    //                    order.getTotalPrice(),
+    //                    order.getPaymentMethod(),
+    //                    (order.getClient() != null) ? order.getClient().getMemberId() : null,
+    //                    order.getQuantityItems().stream().map(
+    //                            quantityItem -> new QuantityItemResponse(
+    //                                    (quantityItem.getItem() != null) ? quantityItem.getItem().getId() : null,
+    //                                    (quantityItem.getItem() != null) ? quantityItem.getQuantity() : null,
+    //                                    (quantityItem.getItem() != null) ? quantityItem.getItem().getItemType() : null
+    //                            )
+    //                    ).toList()
+    //            )
+    //    ).orElseThrow(
+    //            () -> new OrderNotFoundException(orderId)
+    //    );
+    //}
 }
