@@ -7,5 +7,12 @@ Originally developed using a modern Python stack (FastAPI, Pydantic, SQLAlchemy)
 Java Spring Boot and PostgreSQL. The goal was to transition from a flexible, lightweight architecture to a robust, 
 strictly-typed enterprise environment, implementing advanced patterns for polymorphism, data integrity, and scalability.
 
+
+### Database Designs
+
+#### Old Design
+![old database](database/old_design.png)
+#### New Design
+![new database](database/design.png)
 #### Author
 Joel Esteller | Computer Engineering Student
