@@ -4,6 +4,7 @@ import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("orders")
+@RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @SuppressWarnings("NullableProblems")
     @GetMapping

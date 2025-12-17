@@ -5,19 +5,17 @@ import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.ProfessorResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.StudentResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("clients")
+@RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
-
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @SuppressWarnings("NullableProblems")
     @GetMapping

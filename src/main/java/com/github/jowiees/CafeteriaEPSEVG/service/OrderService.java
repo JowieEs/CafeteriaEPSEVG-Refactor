@@ -57,10 +57,9 @@ public class OrderService {
 
         List<OrderItemResponse> itemResponses = order.getOrderItems().stream()
                 .map(orderItem -> new OrderItemResponse(
-                        orderItem.getId(),
-                        orderItem.getQuantity(),
                         orderItem.getItem().getId(),
                         orderItem.getItem().getName(),
+                        orderItem.getQuantity(),
                         orderItem.getItem().getSellingPrice(),
                         orderItem.getItem().getSellingPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()))
                 )).toList();
