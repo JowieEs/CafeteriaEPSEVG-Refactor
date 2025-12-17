@@ -1,29 +1,26 @@
-package com.github.jowiees.CafeteriaEPSEVG.entity.quantityitem;
+package com.github.jowiees.CafeteriaEPSEVG.entity;
 
-import com.github.jowiees.CafeteriaEPSEVG.entity.Order;
 import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "quantitat_items")
-public class QuantityItem {
+@Table(name = "order_items")
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @EmbeddedId
-    private QuantityItemKey id;
-
-    @ManyToOne
-    @MapsId("orderId")
-    @JoinColumn(name = "comanda_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne
-    @MapsId("itemId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
     private Integer quantity;
 
-    public QuantityItemKey getId() {
+    public Long getId() {
         return id;
     }
 

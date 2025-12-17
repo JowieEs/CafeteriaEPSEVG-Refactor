@@ -5,8 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "clients")
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "client_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Client {
     @Id

@@ -7,24 +7,20 @@ import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.StudentResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.client.ProfessorResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.utils.MapClientDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.github.jowiees.CafeteriaEPSEVG.service.utils.LimitedPageable.enforcePageLimits;
 
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ClientService {
 
-    @Autowired
     private final ClientRepository clientRepository;
-
-
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
 
     @SuppressWarnings("NullableProblems")
     public Page<ClientSummaryResponse> getAll(Pageable pageable){
@@ -54,7 +50,7 @@ public class ClientService {
                         s.getId(),
                         s.getUniversityCardCode(),
                         s.getName(),
-                        "Student",
+                        s.getClientType(),
                         s.getCreatedAt(),
                         s.getDegree()
                 )
@@ -69,7 +65,7 @@ public class ClientService {
                     p.getId(),
                     p.getUniversityCardCode(),
                     p.getName(),
-                    "Professor",
+                    p.getClientType(),
                     p.getCreatedAt(),
                     p.getDepartment()
             )

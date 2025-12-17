@@ -1,24 +1,17 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.item;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.github.jowiees.CafeteriaEPSEVG.entity.Category;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "producte")
-@DiscriminatorValue("Producte")
+@Table(name = "products")
+@DiscriminatorValue("PRODUCT")
 public class Product extends Item {
-    private String name;
-    @Column(name = "barcode")
-    private Integer barCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getBarCode() {
-        return barCode;
+    public Category getCategory() {
+        return category;
     }
 }

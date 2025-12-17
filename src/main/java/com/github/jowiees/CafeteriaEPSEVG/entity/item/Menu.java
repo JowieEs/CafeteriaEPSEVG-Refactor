@@ -1,22 +1,34 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.item;
 
+import com.github.jowiees.CafeteriaEPSEVG.entity.MenuProduct;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "menu")
-@DiscriminatorValue("Menu")
+@Table(name = "menus")
+@DiscriminatorValue("MENU")
 public class Menu extends Item{
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "menu_producte_rel",
-            joinColumns = @JoinColumn(name = "menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "producte_id")
-    )
-    private List<Product> products;
 
-    public List<Product> getProducts() {
-        return products;
+    private String description;
+
+    @Column(nullable = false)
+    @ColumnDefault("false")
+    private Boolean isSpecial;
+
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<MenuProduct> menuProducts;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Boolean getSpecial() {
+        return isSpecial;
+    }
+
+    public Set<MenuProduct> getMenuProducts() {
+        return menuProducts;
     }
 }

@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record OrderResponse (
+public record OrderSummaryResponse(
         Long id,
-        @JsonProperty("client_id") Long clientId,
         @JsonProperty("client_name") String clientName,
         @JsonProperty("total_price") BigDecimal totalPrice,
-        @JsonProperty("payment_method") String paymentMethod,
-        @JsonProperty("created_at") LocalDateTime cratedAt
-){}
+        @JsonProperty("created_at")  LocalDateTime createdAt
+) {}

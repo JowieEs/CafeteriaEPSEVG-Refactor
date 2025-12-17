@@ -1,6 +1,6 @@
 package com.github.jowiees.CafeteriaEPSEVG.controller;
 
-import com.github.jowiees.CafeteriaEPSEVG.response.item.ItemResponse;
+import com.github.jowiees.CafeteriaEPSEVG.response.item.ItemBaseResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.ItemService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +18,8 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping()
-    public List<ItemResponse> getAll() {
-        return itemService.getAll();
-    }
+   // @GetMapping
+   // public List<ItemBaseResponse> getAll() {
+   //     return itemService.getAll();
+   // }
 }

@@ -2,6 +2,7 @@ package com.github.jowiees.CafeteriaEPSEVG.controller;
 
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderResponse;
+import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public class OrderController {
 
     @SuppressWarnings("NullableProblems")
     @GetMapping
-    public Page<OrderResponse> getAll(Pageable pageable) {
+    public Page<OrderSummaryResponse> getAll(Pageable pageable) {
         return orderService.getAll(pageable);
     }
 
