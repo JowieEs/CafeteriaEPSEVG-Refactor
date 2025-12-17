@@ -1,39 +1,41 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity;
 
 import com.github.jowiees.CafeteriaEPSEVG.entity.client.Client;
-import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
-import com.github.jowiees.CafeteriaEPSEVG.entity.quantityitem.QuantityItem;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "comanda")
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dateTime;
-    private Double totalPrice;
-    private String paymentMethod;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", nullable = true)
     private Client client;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<QuantityItem> quantityItems;
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
+
+    @Column(nullable = false, length = 20)
+    private String paymentMethod;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public Client getClient() {
+        return client;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
@@ -41,11 +43,7 @@ public class Order {
         return paymentMethod;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public List<QuantityItem> getQuantityItems() {
-        return quantityItems;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

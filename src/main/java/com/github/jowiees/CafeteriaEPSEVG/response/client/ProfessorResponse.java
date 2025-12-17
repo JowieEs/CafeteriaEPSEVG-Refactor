@@ -11,4 +11,4 @@ public record ProfessorResponse(
         @JsonProperty("client_type") String clientType,
         @JsonProperty("created_at") LocalDateTime createdAt,
         String department
-) implements ClientResponse {}
+) implements ClientBaseResponse {}

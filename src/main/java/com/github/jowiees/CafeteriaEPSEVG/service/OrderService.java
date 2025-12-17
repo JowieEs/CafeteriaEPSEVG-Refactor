@@ -2,13 +2,15 @@ package com.github.jowiees.CafeteriaEPSEVG.service;
 
 import com.github.jowiees.CafeteriaEPSEVG.exception.OrderNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.repository.OrderRepository;
-import com.github.jowiees.CafeteriaEPSEVG.response.QuantityItemResponse;
+import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import static com.github.jowiees.CafeteriaEPSEVG.service.utils.LimitedPageable.enforcePageLimits;
 
 @Service
 public class OrderService {
@@ -20,36 +22,36 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    //public List<OrderResponse> getAll() {
-    //    return orderRepository.findAll().stream().map(
-    //            order -> new OrderResponse(
-    //                    order.getId(),
-    //                    order.getDateTime(),
-    //                    order.getTotalPrice(),
-    //                    order.getPaymentMethod(),
-    //                    (order.getClient() != null) ? order.getClient().getMemberId() : null
-    //            )
-    //    ).toList();
-    //}
+    @SuppressWarnings("NullableProblems")
+    public Page<OrderResponse> getAll(Pageable pageable) {
+        return orderRepository.findAll(enforcePageLimits(pageable)).map(
+                order -> new OrderResponse(
+                        order.getId(),
+                        (order.getClient() != null) ? order.getClient().getId() : null,
+                        order.getTotalPrice(),
+                        order.getPaymentMethod(),
+                        order.getCreatedAt()
 
-    //public OrderDetailResponse getById(Long orderId) {
-    //    return orderRepository.findById(orderId).map(
-    //            order -> new OrderDetailResponse(
-    //                    order.getId(),
-    //                    order.getDateTime(),
-    //                    order.getTotalPrice(),
-    //                    order.getPaymentMethod(),
-    //                    (order.getClient() != null) ? order.getClient().getMemberId() : null,
-    //                    order.getQuantityItems().stream().map(
-    //                            quantityItem -> new QuantityItemResponse(
-    //                                    (quantityItem.getItem() != null) ? quantityItem.getItem().getId() : null,
-    //                                    (quantityItem.getItem() != null) ? quantityItem.getQuantity() : null,
-    //                                    (quantityItem.getItem() != null) ? quantityItem.getItem().getItemType() : null
-    //                            )
-    //                    ).toList()
-    //            )
-    //    ).orElseThrow(
-    //            () -> new OrderNotFoundException(orderId)
-    //    );
-    //}
+                )
+        );
+    }
+
+
+    public OrderDetailResponse getById(Long orderId) {
+        return orderRepository.findById(orderId).map(
+                order -> new OrderDetailResponse(
+                        order.getId(),
+                        order.getTotalPrice(),
+                        order.getPaymentMethod(),
+                        order.getCreatedAt(),
+                        (order.getClient() != null) ? new ClientSummaryResponse(
+                                order.getClient().getId(),
+                                order.getClient().getName(),
+                                order.getClient().getClientType()
+                        ) : null
+                )
+        ).orElseThrow(
+                () -> new OrderNotFoundException(orderId)
+        );
+    }
 }

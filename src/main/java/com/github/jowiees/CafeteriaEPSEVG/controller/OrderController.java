@@ -3,12 +3,13 @@ package com.github.jowiees.CafeteriaEPSEVG.controller;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.OrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("orders")
@@ -20,13 +21,14 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    //@GetMapping
-    //public List<OrderResponse> getAll() {
-    //    return orderService.getAll();
-    //}
+    @SuppressWarnings("NullableProblems")
+    @GetMapping
+    public Page<OrderResponse> getAll(Pageable pageable) {
+        return orderService.getAll(pageable);
+    }
 
-    //@GetMapping("{orderId}")
-    //public OrderDetailResponse getById(@PathVariable Long orderId) {
-    //    return orderService.getById(orderId);
-    //}
+    @GetMapping("{orderId}")
+    public OrderDetailResponse getById(@PathVariable Long orderId) {
+        return orderService.getById(orderId);
+    }
 }

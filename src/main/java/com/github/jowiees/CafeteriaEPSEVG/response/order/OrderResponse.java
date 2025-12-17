@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 public record OrderResponse (
         Long id,
-        @JsonProperty("date_time") LocalDateTime dateTime,
-        @JsonProperty("total_price") Double totalPrice,
+        @JsonProperty("client_id") Long clientId,
+        @JsonProperty("total_price") java.math.BigDecimal totalPrice,
         @JsonProperty("payment_method") String paymentMethod,
-        @JsonProperty("client_id") Integer clientId
+        @JsonProperty("created_at") LocalDateTime cratedAt
 ){}

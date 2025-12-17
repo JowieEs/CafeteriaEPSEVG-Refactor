@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "clients")
-@DiscriminatorColumn(name = "client_type")
+@DiscriminatorColumn(name = "client_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,13 @@ public abstract class Client {
     @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(name = "client_type", updatable = false, insertable = false)
+    private String clientType;
+
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
 
     public Long getId() {
         return id;
@@ -37,5 +41,9 @@ public abstract class Client {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public String getClientType() {
+        return clientType;
     }
 }
