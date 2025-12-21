@@ -1,9 +1,11 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.client;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "clients")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,25 +27,4 @@ public abstract class Client {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUniversityCardCode() {
-        return universityCardCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getClientType() {
-        return clientType;
-    }
 }

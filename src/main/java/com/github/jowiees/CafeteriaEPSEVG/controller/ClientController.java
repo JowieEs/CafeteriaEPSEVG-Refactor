@@ -1,9 +1,8 @@
 package com.github.jowiees.CafeteriaEPSEVG.controller;
 
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientBaseResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientSummaryResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ProfessorResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.StudentResponse;
+import com.github.jowiees.CafeteriaEPSEVG.dto.request.client.ClientFilter;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientDetailResponse;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,24 +18,12 @@ public class ClientController {
 
     @SuppressWarnings("NullableProblems")
     @GetMapping
-    public Page<ClientSummaryResponse> getAll(Pageable pageable) {
-        return clientService.getAll(pageable);
-    }
-
-    @SuppressWarnings("NullableProblems")
-    @GetMapping("students")
-    public Page<StudentResponse> getAllStudents(Pageable pageable) {
-        return clientService.getAllStudents(pageable);
-    }
-
-    @SuppressWarnings("NullableProblems")
-    @GetMapping("professors")
-    public Page<ProfessorResponse> getAllProfessors(Pageable pageable) {
-        return clientService.getAllProfessors(pageable);
+    public Page<ClientSummaryResponse> getAll(@ModelAttribute ClientFilter clientFilter, Pageable pageable) {
+        return clientService.getAll(clientFilter, pageable);
     }
 
     @GetMapping("{id}")
-    public ClientBaseResponse getById(@PathVariable Long id) {
+    public ClientDetailResponse getById(@PathVariable Long id) {
         return clientService.getById(id);
     }
 }

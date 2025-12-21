@@ -1,15 +1,17 @@
 package com.github.jowiees.CafeteriaEPSEVG.service;
 
+import com.github.jowiees.CafeteriaEPSEVG.dto.request.client.ClientFilter;
+import com.github.jowiees.CafeteriaEPSEVG.entity.client.Client;
+import com.github.jowiees.CafeteriaEPSEVG.mapper.ClientMapper;
 import com.github.jowiees.CafeteriaEPSEVG.repository.ClientRepository;
 import com.github.jowiees.CafeteriaEPSEVG.exception.ClientNotFoundException;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientBaseResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ClientSummaryResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.StudentResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.client.ProfessorResponse;
-import com.github.jowiees.CafeteriaEPSEVG.service.utils.MapClientDTO;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientDetailResponse;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientSummaryResponse;
+import com.github.jowiees.CafeteriaEPSEVG.specification.ClientSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,56 +23,20 @@ import static com.github.jowiees.CafeteriaEPSEVG.service.utils.LimitedPageable.e
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
 
     @SuppressWarnings("NullableProblems")
-    public Page<ClientSummaryResponse> getAll(Pageable pageable){
+    public Page<ClientSummaryResponse> getAll(ClientFilter clientFilter, Pageable pageable){
         Pageable safePageable = enforcePageLimits(pageable);
-        return clientRepository.findAll(safePageable).map(
-                client -> new ClientSummaryResponse(
-                       client.getId(),
-                       client.getName(),
-                       client.getClientType()
-                )
-        );
+        Specification<Client> specification = ClientSpecification.withFilter(clientFilter);
+        return clientRepository.findAll(specification, safePageable).map(clientMapper::toSummaryResponse);
     }
 
-    public ClientBaseResponse getById(Long id) {
+    public ClientDetailResponse getById(Long id) {
         return clientRepository.findById(id)
-                .map(MapClientDTO::mapToDto)
+                .map(clientMapper::toDetailResponse)
                 .orElseThrow(
                         () -> new ClientNotFoundException(id)
                 );
     }
-
-    @SuppressWarnings("NullableProblems")
-    public Page<StudentResponse> getAllStudents(Pageable pageable) {
-        Pageable safePageable = enforcePageLimits(pageable);
-        return clientRepository.findAllStudents(safePageable).map(
-                s -> new StudentResponse(
-                        s.getId(),
-                        s.getUniversityCardCode(),
-                        s.getName(),
-                        s.getClientType(),
-                        s.getCreatedAt(),
-                        s.getDegree()
-                )
-        );
-    }
-
-    @SuppressWarnings("NullableProblems")
-    public Page<ProfessorResponse> getAllProfessors(Pageable pageable) {
-        Pageable safePageable = enforcePageLimits(pageable);
-        return clientRepository.findAllProfessors(safePageable).map(
-                p -> new ProfessorResponse(
-                    p.getId(),
-                    p.getUniversityCardCode(),
-                    p.getName(),
-                    p.getClientType(),
-                    p.getCreatedAt(),
-                    p.getDepartment()
-            )
-        );
-    }
-
-
 }

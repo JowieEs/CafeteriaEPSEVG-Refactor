@@ -1,8 +1,7 @@
 package com.github.jowiees.CafeteriaEPSEVG.controller;
 
-import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderDetailResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderResponse;
-import com.github.jowiees.CafeteriaEPSEVG.response.order.OrderSummaryResponse;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderDetailResponse;
+import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

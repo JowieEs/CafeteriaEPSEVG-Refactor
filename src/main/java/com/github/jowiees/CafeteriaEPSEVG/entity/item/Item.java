@@ -1,10 +1,11 @@
 package com.github.jowiees.CafeteriaEPSEVG.entity.item;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
-
+@Getter
 @Entity
 @Table(name = "items")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,24 +26,4 @@ public abstract class Item {
 
     @Column(name = "is_active")
     private Boolean isActive;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getItemType() {
-        return itemType;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public BigDecimal getSellingPrice() {
-        return sellingPrice;
-    }
 }
