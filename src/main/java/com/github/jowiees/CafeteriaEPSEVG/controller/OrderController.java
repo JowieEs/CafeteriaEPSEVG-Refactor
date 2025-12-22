@@ -25,8 +25,8 @@ public class OrderController {
         return orderService.getAll(pageable);
     }
 
-    @GetMapping("{orderId}")
-    public OrderDetailResponse getById(@PathVariable Long orderId) {
-        return orderService.getById(orderId);
+    @GetMapping("{id}")
+    public OrderDetailResponse getById(@PathVariable Long id) {
+        return orderService.getById(id);
     }
 }

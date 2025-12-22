@@ -1,6 +1,7 @@
 package com.github.jowiees.CafeteriaEPSEVG.mapper.order;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderItemDetailResponse;
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
 import com.github.jowiees.CafeteriaEPSEVG.entity.order.OrderItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

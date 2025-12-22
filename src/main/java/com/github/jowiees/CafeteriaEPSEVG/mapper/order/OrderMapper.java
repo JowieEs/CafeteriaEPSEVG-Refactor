@@ -38,8 +38,10 @@ public class OrderMapper {
             clientSummaryResponse = clientMapper.toSummaryResponse(order.getClient());
         }
 
-        List<OrderItemDetailResponse> orderItemDetailResponses = order.getOrderItems().stream()
-                .map(orderItemMapper::toDetailResponse).toList();
+        List<OrderItemDetailResponse> orderItemDetailResponses = order.getOrderItems()
+                .stream()
+                .map(orderItemMapper::toDetailResponse)
+                .toList();
 
         return new OrderDetailResponse(
                 order.getId(),

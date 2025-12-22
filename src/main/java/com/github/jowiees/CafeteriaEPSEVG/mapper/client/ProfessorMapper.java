@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProfessorMapper {
+
     public ProfessorResponse toResponse(Professor professor) {
         return ProfessorResponse.builder()
                 .id(professor.getId())
