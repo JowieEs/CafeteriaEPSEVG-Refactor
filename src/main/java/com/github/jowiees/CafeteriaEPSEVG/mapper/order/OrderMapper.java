@@ -1,22 +1,21 @@
-package com.github.jowiees.CafeteriaEPSEVG.mapper;
+package com.github.jowiees.CafeteriaEPSEVG.mapper.order;
 
 import com.github.jowiees.CafeteriaEPSEVG.entity.order.Order;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderItemDetailResponse;
-import com.github.jowiees.CafeteriaEPSEVG.mapper.item.ItemMapper;
+import com.github.jowiees.CafeteriaEPSEVG.mapper.client.ClientMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class OrderMapper {
 
-    private final ItemMapper itemMapper;
+    private final OrderItemMapper orderItemMapper;
     private final ClientMapper clientMapper;
 
     public OrderSummaryResponse toSummaryResponse(Order order) {
@@ -39,12 +38,8 @@ public class OrderMapper {
             clientSummaryResponse = clientMapper.toSummaryResponse(order.getClient());
         }
 
-        List<OrderItemDetailResponse> itemResponses = order.getOrderItems().stream()
-                .map(orderItem -> new OrderItemDetailResponse(
-                        orderItem.getQuantity(),
-                        itemMapper.toSummaryResponse(orderItem.getItem()),
-                        orderItem.getItem().getSellingPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()))
-                )).toList();
+        List<OrderItemDetailResponse> orderItemDetailResponses = order.getOrderItems().stream()
+                .map(orderItemMapper::toDetailResponse).toList();
 
         return new OrderDetailResponse(
                 order.getId(),
@@ -52,7 +47,7 @@ public class OrderMapper {
                 order.getPaymentMethod(),
                 order.getCreatedAt(),
                 clientSummaryResponse,
-                itemResponses
+                orderItemDetailResponses
         );
     }
 }

@@ -1,4 +1,4 @@
-package com.github.jowiees.CafeteriaEPSEVG.mapper.item;
+package com.github.jowiees.CafeteriaEPSEVG.mapper.item.product;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.product.CategoryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.entity.item.Category;

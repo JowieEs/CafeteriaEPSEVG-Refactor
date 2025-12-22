@@ -1,12 +1,17 @@
 package com.github.jowiees.CafeteriaEPSEVG.dto.response.client;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 
-public sealed interface ClientDetailResponse permits StudentResponse, ProfessorResponse {
-    Long id();
-    String universityCardCode();
-    String name();
-    String clientType();
-    LocalDateTime createdAt();
+@Getter
+@SuperBuilder
+public abstract class ClientDetailResponse {
+    private final Long id;
+    private final String universityCardCode;
+    private final String name;
+    private final String clientType;
+    private final LocalDateTime createdAt;
 }
 

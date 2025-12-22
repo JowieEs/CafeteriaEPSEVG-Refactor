@@ -2,7 +2,7 @@ package com.github.jowiees.CafeteriaEPSEVG.service;
 
 import com.github.jowiees.CafeteriaEPSEVG.entity.order.Order;
 import com.github.jowiees.CafeteriaEPSEVG.exception.OrderNotFoundException;
-import com.github.jowiees.CafeteriaEPSEVG.mapper.OrderMapper;
+import com.github.jowiees.CafeteriaEPSEVG.mapper.order.OrderMapper;
 import com.github.jowiees.CafeteriaEPSEVG.repository.OrderRepository;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.order.OrderSummaryResponse;

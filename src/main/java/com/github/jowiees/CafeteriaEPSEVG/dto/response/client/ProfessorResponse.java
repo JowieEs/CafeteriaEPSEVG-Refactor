@@ -1,14 +1,10 @@
 package com.github.jowiees.CafeteriaEPSEVG.dto.response.client;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
-
-public record ProfessorResponse(
-        Long id,
-        @JsonProperty("university_card_code") String universityCardCode,
-        String name,
-        @JsonProperty("client_type") String clientType,
-        @JsonProperty("created_at") LocalDateTime createdAt,
-        String department
-) implements ClientDetailResponse {}
+@Getter
+@SuperBuilder
+public class ProfessorResponse extends ClientDetailResponse{
+    private final String department;
+}

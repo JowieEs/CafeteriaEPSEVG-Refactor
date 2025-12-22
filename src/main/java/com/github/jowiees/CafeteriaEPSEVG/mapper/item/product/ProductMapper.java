@@ -1,4 +1,4 @@
-package com.github.jowiees.CafeteriaEPSEVG.mapper.item;
+package com.github.jowiees.CafeteriaEPSEVG.mapper.item.product;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.product.ProductDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.product.ProductSummaryResponse;
@@ -19,7 +19,7 @@ public class ProductMapper {
                 .sellingPrice(product.getSellingPrice())
                 .itemType(product.getItemType())
                 .isActive(product.getIsActive())
-                .categoryName(product.getCategory().getName())
+                .categoryName((product.getCategory() != null) ? product.getCategory().getName() : null)
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.github.jowiees.CafeteriaEPSEVG.mapper;
+package com.github.jowiees.CafeteriaEPSEVG.mapper.client;
 
 import com.github.jowiees.CafeteriaEPSEVG.entity.client.Client;
 import com.github.jowiees.CafeteriaEPSEVG.entity.client.Professor;
@@ -7,10 +7,16 @@ import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientDetailRespon
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ProfessorResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.StudentResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ClientMapper {
+
+    private final ProfessorMapper professorMapper;
+    private final StudentMapper studentMapper;
+
     public ClientSummaryResponse toSummaryResponse (Client client) {
         return new ClientSummaryResponse(
                 client.getId(),
@@ -21,23 +27,10 @@ public class ClientMapper {
 
     public ClientDetailResponse toDetailResponse(Client client) {
         return switch (client) {
-            case Professor p -> new ProfessorResponse(
-                    p.getId(),
-                    p.getUniversityCardCode(),
-                    p.getName(),
-                    p.getClientType(),
-                    p.getCreatedAt(),
-                    p.getDepartment()
-            );
+            case Professor p -> professorMapper.toResponse(p);
 
-            case Student s -> new StudentResponse(
-                    s.getId(),
-                    s.getUniversityCardCode(),
-                    s.getName(),
-                    s.getClientType(),
-                    s.getCreatedAt(),
-                    s.getDegree()
-            );
+            case Student s -> studentMapper.toResponse(s);
+
             default -> throw new IllegalStateException("Unexpected value: " + client);
         };
     }

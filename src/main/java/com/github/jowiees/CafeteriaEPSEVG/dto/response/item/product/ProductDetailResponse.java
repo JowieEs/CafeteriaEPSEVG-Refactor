@@ -7,5 +7,5 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 public class ProductDetailResponse extends ItemResponse {
-    private CategoryResponse category;
+    private final CategoryResponse category;
 }

@@ -1,9 +1,10 @@
-package com.github.jowiees.CafeteriaEPSEVG.mapper.item;
+package com.github.jowiees.CafeteriaEPSEVG.mapper.item.menu;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.menu.MenuDetailResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.menu.MenuProductResponse;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.menu.MenuSummaryResponse;
 import com.github.jowiees.CafeteriaEPSEVG.entity.item.Menu;
+import com.github.jowiees.CafeteriaEPSEVG.mapper.item.product.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class MenuMapper {
 
     private final ProductMapper productMapper;
+    private final MenuProductMapper menuProductMapper;
 
     public MenuDetailResponse toDetailResponse(Menu menu) {
         return MenuDetailResponse.builder()
@@ -22,15 +24,7 @@ public class MenuMapper {
                 .isActive(menu.getIsActive())
                 .description(menu.getDescription())
                 .isSpecial(menu.getIsSpecial())
-                .products(menu.getMenuProducts().stream()
-                        .map(
-                            menuProduct -> new MenuProductResponse(
-                                    menuProduct.getQuantity(),
-                                    productMapper.toSummaryResponse(menuProduct.getProduct())
-                            )
-                        )
-                        .toList()
-                )
+                .products(menu.getMenuProducts().stream().map(menuProductMapper::toResponse).toList())
                 .build();
     }
 

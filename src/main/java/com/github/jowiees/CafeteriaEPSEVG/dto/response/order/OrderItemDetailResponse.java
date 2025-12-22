@@ -1,13 +1,15 @@
 package com.github.jowiees.CafeteriaEPSEVG.dto.response.order;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.ItemResponse;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-public record OrderItemDetailResponse(
-        Integer quantity,
-        BigDecimal totalPrice,
-        ItemResponse item
-) {
+@Value
+public class OrderItemDetailResponse{
+    Long itemId;
+    String itemType;
+    String name;
+    Integer quantity;
+    BigDecimal selledAt;
+    BigDecimal totalPrice;
 }

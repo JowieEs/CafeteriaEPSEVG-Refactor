@@ -2,7 +2,7 @@ package com.github.jowiees.CafeteriaEPSEVG.service;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.request.client.ClientFilter;
 import com.github.jowiees.CafeteriaEPSEVG.entity.client.Client;
-import com.github.jowiees.CafeteriaEPSEVG.mapper.ClientMapper;
+import com.github.jowiees.CafeteriaEPSEVG.mapper.client.ClientMapper;
 import com.github.jowiees.CafeteriaEPSEVG.repository.ClientRepository;
 import com.github.jowiees.CafeteriaEPSEVG.exception.ClientNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.client.ClientDetailResponse;
