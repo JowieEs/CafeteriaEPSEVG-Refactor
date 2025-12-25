@@ -1,5 +1,6 @@
-package com.github.jowiees.CafeteriaEPSEVG.entity.item;
+package com.github.jowiees.CafeteriaEPSEVG.entity.item.menu;
 
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 

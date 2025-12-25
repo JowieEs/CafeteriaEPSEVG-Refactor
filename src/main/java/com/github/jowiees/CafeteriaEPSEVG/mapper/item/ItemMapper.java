@@ -2,8 +2,8 @@ package com.github.jowiees.CafeteriaEPSEVG.mapper.item;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.*;
 import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
-import com.github.jowiees.CafeteriaEPSEVG.entity.item.Menu;
-import com.github.jowiees.CafeteriaEPSEVG.entity.item.Product;
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.menu.Menu;
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.product.Product;
 import com.github.jowiees.CafeteriaEPSEVG.mapper.item.menu.MenuMapper;
 import com.github.jowiees.CafeteriaEPSEVG.mapper.item.product.ProductMapper;
 import lombok.RequiredArgsConstructor;

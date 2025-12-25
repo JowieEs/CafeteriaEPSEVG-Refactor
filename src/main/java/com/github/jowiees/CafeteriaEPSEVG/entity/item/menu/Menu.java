@@ -1,5 +1,6 @@
-package com.github.jowiees.CafeteriaEPSEVG.entity.item;
+package com.github.jowiees.CafeteriaEPSEVG.entity.item.menu;
 
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
@@ -10,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "menus")
 @DiscriminatorValue("MENU")
-public class Menu extends Item{
+public class Menu extends Item {
 
     private String description;
 

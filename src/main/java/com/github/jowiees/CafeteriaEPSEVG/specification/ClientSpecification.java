@@ -17,6 +17,13 @@ public class ClientSpecification {
             if (filter.getClientType() != null && !filter.getClientType().isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("clientType"),filter.getClientType()));
             }
+
+            if (filter.getName() != null && !filter.getName().isEmpty()) {
+                predicates.add(criteriaBuilder.like(
+                        criteriaBuilder.lower(root.get("name")),
+                        "%" + filter.getName().toLowerCase() + "%"
+                ));
+            }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

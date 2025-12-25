@@ -1,9 +1,7 @@
 package com.github.jowiees.CafeteriaEPSEVG.mapper.item.menu;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.menu.MenuProductResponse;
-import com.github.jowiees.CafeteriaEPSEVG.entity.item.MenuProduct;
-import com.github.jowiees.CafeteriaEPSEVG.entity.item.Product;
-import lombok.RequiredArgsConstructor;
+import com.github.jowiees.CafeteriaEPSEVG.entity.item.menu.MenuProduct;
 import org.springframework.stereotype.Component;
 
 @Component
