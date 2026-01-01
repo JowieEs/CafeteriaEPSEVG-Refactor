@@ -2,12 +2,10 @@ package com.github.jowiees.CafeteriaEPSEVG.service;
 
 import com.github.jowiees.CafeteriaEPSEVG.dto.request.item.ItemFilter;
 import com.github.jowiees.CafeteriaEPSEVG.dto.response.item.ItemResponse;
-import com.github.jowiees.CafeteriaEPSEVG.entity.client.Client;
 import com.github.jowiees.CafeteriaEPSEVG.entity.item.Item;
 import com.github.jowiees.CafeteriaEPSEVG.exception.ItemNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.mapper.item.ItemMapper;
 import com.github.jowiees.CafeteriaEPSEVG.repository.ItemRepository;
-import com.github.jowiees.CafeteriaEPSEVG.specification.ClientSpecification;
 import com.github.jowiees.CafeteriaEPSEVG.specification.ItemSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

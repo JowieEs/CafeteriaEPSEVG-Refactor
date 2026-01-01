@@ -3,6 +3,7 @@ package com.github.jowiees.CafeteriaEPSEVG.controller.advice;
 import com.github.jowiees.CafeteriaEPSEVG.exception.ClientNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.exception.ItemNotFoundException;
 import com.github.jowiees.CafeteriaEPSEVG.exception.OrderNotFoundException;
+import com.github.jowiees.CafeteriaEPSEVG.exception.UnitNotFoundException;
 import org.springframework.data.core.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -28,6 +29,11 @@ public class GlobalExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
+    @ExceptionHandler(PropertyReferenceException.class)
+    ProblemDetail handleUnitMissing(UnitNotFoundException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+
     @ExceptionHandler(NoHandlerFoundException.class)
     ProblemDetail handleNotFound(NoHandlerFoundException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
@@ -37,4 +43,5 @@ public class GlobalExceptionHandler {
     ProblemDetail handleInvalidProperty(PropertyReferenceException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
+
 }

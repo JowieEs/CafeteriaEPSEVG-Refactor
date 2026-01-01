@@ -7,5 +7,6 @@ public class UnitDetailResponse {
     Long id;
     String name;
     String description;
+    String barcode;
     Integer stock;
 }
